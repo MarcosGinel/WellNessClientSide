@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,4BAAY;EACV,KAAK,ECHyB,OAAO;;ADMvC,eAAgB;EAEd,MAAM,ECLuB,iBAAsD",
+"sources": ["formularioLogin.scss","variables.scss"],
+"names": [],
+"file": "formularioLogin.css"
+}

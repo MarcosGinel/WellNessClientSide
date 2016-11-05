@@ -1,0 +1,10 @@
+@import "variables";
+
+.errorVacio {
+  color : $color_error_formulario_login;
+}
+
+.errorTrasLogin {
+  @extend .errorVacio;
+  border: $recuadro_error_credenciales;
+}
