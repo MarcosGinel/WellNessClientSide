@@ -76,6 +76,8 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
     this.saveToken = function(token, username) {
         configuracion.sesion.token = token;
         configuracion.sesion.username = username;
+        localStorage.setItem("Token", token);
+        localStorage.setItem("Usuario", username);
     };
 
     this.getToken = function() {

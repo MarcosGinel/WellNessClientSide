@@ -8,7 +8,7 @@ angular.module("wellnessApp").config(["$routeSegmentProvider", "$routeProvider",
     $routeSegmentProvider.when("/dropdownFacturas", "dropdown");
     $routeSegmentProvider.when("/facturacion/crearUsuario", "facturacion.crearUsuario");
     $routeSegmentProvider.when("/facturacion/listarUsuarios", "facturacion.listarUsuarios");
-    $routeSegmentProvider.when("/facturacion/crearFactura", "facturacion.crearFactura");
+    $routeSegmentProvider.when("/facturacion/crearPrecio", "facturacion.crearPrecio");
     $routeSegmentProvider.when("/facturacion/listarFacturas", "facturacion.listarFacturas");
 
     $routeSegmentProvider.segment("login", {
@@ -21,17 +21,12 @@ angular.module("wellnessApp").config(["$routeSegmentProvider", "$routeProvider",
         templateUrl: "views/facturacion/facturacion.html"
     });
 
-    $routeSegmentProvider.within("facturacion").segment("crearUsuario", {
-        controller: "CrearUsuarioController",
-        templateUrl: "views/facturacion/usuarios/crear.html"
-    });
-
     $routeSegmentProvider.within("facturacion").segment("listarUsuarios", {
         controller: "ListarUsuariosController",
         templateUrl: "views/facturacion/usuarios/listar.html"
     });
 
-    $routeSegmentProvider.within("facturacion").segment("crearFactura", {
+    $routeSegmentProvider.within("facturacion").segment("crearPrecio", {
         controller: "CrearFacturaController",
         templateUrl: "views/facturacion/facturas/crear.html"
     });
