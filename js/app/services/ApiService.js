@@ -39,6 +39,22 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
         );
     }
 
+    this.getUsers = function() {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetUsers,
+            method: 'GET',
+            headers : cabecera
+        }
+
+        return $http(peticion);
+    }
+
     this.saveToken = function(token, username) {
         configuracion.sesion.token = token;
         configuracion.sesion.username = username;
