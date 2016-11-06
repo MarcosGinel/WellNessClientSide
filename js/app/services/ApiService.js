@@ -32,6 +32,8 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
             function( resultado ) {
                 console.log("Deslogeado");
                 $window.location.href = '';
+                localStorage.remove("Token");
+                localStorage.remove("Usuario");
             },
             function( resultado ) {
                 console.log("Error al hacer el logout");
@@ -48,6 +50,22 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
 
         peticion = {
             url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetUsers,
+            method: 'GET',
+            headers : cabecera
+        };
+
+        return $http(peticion);
+    };
+
+    this.getUserFromApi = function(id) {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetUsers+id+"/",
             method: 'GET',
             headers : cabecera
         };
@@ -79,6 +97,40 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
             url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiDeleteUser+id+"/",
             method: 'DELETE',
             headers : cabecera
+        };
+
+        return $http(peticion);
+    };
+
+    this.modificaUsuario = function(usuario, id) {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetUsers+id+"/",
+            method: 'PUT',
+            headers : cabecera,
+            data : usuario
+        };
+
+        return $http(peticion);
+    };
+
+    this.creaUsuario = function(usuario) {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetUsers,
+            method: 'POST',
+            headers : cabecera,
+            data : usuario
         };
 
         return $http(peticion);

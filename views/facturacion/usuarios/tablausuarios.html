@@ -1,6 +1,8 @@
 <div ng-controller="TablaUsuariosController" class="modal-demo">
     <div ui-grid="gridOptions" ui-grid-selection class="grid"></div>
     <br/>
+    <button type="button" class="btn btn-primary" ng-click="editUser(false)">Crear usuario</button></button>
+    <button type="button" class="btn btn-success" ng-click="editUser(true)">Editar Seleccionado</button></button>
     <button type="button" class="btn btn-danger" ng-click="delete()">Borrar Seleccionados</button></button>
-    <button type="button" class="btn btn-success" ng-click="editUser()">Editar Seleccionado</button></button>
+
 </div>

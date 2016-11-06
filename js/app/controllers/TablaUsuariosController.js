@@ -58,13 +58,39 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
         });
     }
 
-    $scope.editUser = function() {
-        seleccionados = $scope.gridApi.selection.getSelectedRows();
-        if (seleccionados.length > 1) {
-            errorModal();
-        }
-        else if (seleccionados.length == 1) {
+    function editarUsuario(id) {
+        var parentElem = angular.element('.modal-demo ');
 
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'model-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'views/modal/myModalContentEdition.html',
+            controller: 'ModalInstanceEditionCtrl',
+            controllerAs: '$scope',
+            appendTo: parentElem,
+            size: 'lg',
+            resolve: {
+                id: function() {
+                    return id;
+                }
+            }
+        });
+    }
+
+    $scope.editUser = function(editar) {
+        if(editar) {
+            seleccionados = $scope.gridApi.selection.getSelectedRows();
+            if (seleccionados.length > 1) {
+                errorModal();
+            }
+            else if (seleccionados.length == 1) {
+                id = seleccionados[0].id;
+                editarUsuario(id);
+            }
+        }
+        else {
+            editarUsuario(null);
         }
     };
 
@@ -101,6 +127,9 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
         $scope.gridApi = gridApi;
     };
 
+    $scope.$on("recargaDatos", function(event, data) {
+        pideDatos();
+    });
 
 
 }]);
