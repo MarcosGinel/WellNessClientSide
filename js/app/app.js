@@ -1,4 +1,4 @@
-angular.module("wellnessApp", ["ngRoute", "route-segment", "view-segment", "ui.grid"]);
+angular.module("wellnessApp", ["ngRoute", "route-segment", "view-segment", "ui.grid", 'ui.grid.selection', 'ui.bootstrap']);
 
 angular.module("wellnessApp").config(["$routeSegmentProvider", "$routeProvider", function($routeSegmentProvider, $routeProvider) {
     $routeSegmentProvider.when("/login", "login");

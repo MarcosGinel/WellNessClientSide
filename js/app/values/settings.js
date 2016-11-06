@@ -8,5 +8,6 @@ angular.module("wellnessApp").value("configuracion", {
     "rutaApiLogin" : "users/api/v1/login/",
     "rutaApiLogout" : "users/api/v1/logout/",
     "rutaApiGetUsers" : "users/api/v1/users/",
+    "rutaApiDeleteUser" : "users/api/v1/users/",
     "sesion" : {}
 });
