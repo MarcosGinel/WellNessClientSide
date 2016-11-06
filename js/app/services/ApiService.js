@@ -2,7 +2,7 @@
  * Created by marco on 05/11/2016.
  */
 
-angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", function($http, configuracion) {
+angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '$window', function($http, configuracion, $window) {
     this.login = function(username, password) {
         json = {
             username: username,
@@ -13,6 +13,30 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", f
         }
         return $http.post(configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiLogin, json);
 
+    }
+
+    this.logout = function() {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiLogout,
+            method: 'GET',
+            headers : cabecera
+        }
+
+        $http(peticion).then(
+            function( resultado ) {
+                console.log("Deslogeado");
+                $window.location.href = '';
+            },
+            function( resultado ) {
+                console.log("Error al hacer el logout");
+            }
+        );
     }
 
     this.saveToken = function(token, username) {

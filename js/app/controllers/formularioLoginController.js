@@ -1,4 +1,4 @@
-angular.module("wellnessApp").controller('formularioLoginController', ['ApiService', '$scope', 'LoginService', function(ApiService, $scope, LoginService) {
+angular.module("wellnessApp").controller('formularioLoginController', ['ApiService', '$scope', 'LoginService', '$window', function(ApiService, $scope, LoginService, $window) {
     console.log("Cargado formularioLoginController");
 
     $scope.credencialesErroneas = false;
@@ -13,6 +13,7 @@ angular.module("wellnessApp").controller('formularioLoginController', ['ApiServi
                         $scope.credencialesErroneas = false;
                         // El token se debería guardar en localStorage, pero lo hago en values para meter algo más de AngularJS.
                         ApiService.saveToken(resultado.data.token, $scope.username);
+                        $window.location.href = '#/facturacion';
                         // Redireccionar
                     }
                 },
