@@ -39,6 +39,7 @@
                 <div ng-show="errores.password" class="alert alert-danger" role="alert">{{ errores.password }}</div>
             </div>
         </div>
+        <div ng-show="permisos" class="alert alert-danger" role="alert">No tienes permisos para hacer esto.</div>
         <div ng-show="exito" class="alert alert-success" role="alert">Usuario guardado con éxito</div>
         <button class="btn btn-primary col-sm-offset-10" ng-click="editarUsuario()">{{ accion }}</button>
     </form>

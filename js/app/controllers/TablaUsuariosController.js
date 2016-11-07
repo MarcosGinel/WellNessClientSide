@@ -50,7 +50,21 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
                     pideDatos();
                 },
                 function(resultado) {
-                    console.log("Problemas al borrar al usuario");
+                    if(resultado.status != 403) {
+                        console.log("Problemas al borrar al usuario");
+                    }
+                    else {
+                        var parentElem = angular.element('.modal-demo ');
+                        $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'model-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: 'views/modal/myModalContentErrorAlCrear.html',
+                            controller: 'ModalInstanceCtrl',
+                            controllerAs: '$scope',
+                            appendTo: parentElem,
+                        });
+                    }
                 }
             );
 
@@ -146,5 +160,9 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
 
     $scope.verGrid = function() {
         return $scope.mostrarGrid;
-    }
+    };
+
+    $scope.$on("atras", function(event, data) {
+        $scope.mostrarGrid = true;
+    });
 }]);

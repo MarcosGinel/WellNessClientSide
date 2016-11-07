@@ -168,5 +168,60 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
         };
 
         return $http(peticion);
+    };
+
+    this.getPrecios = function() {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetPrecio,
+            method: 'GET',
+            headers : cabecera,
+        };
+
+        return $http(peticion);
+    };
+
+    this.editarPrecio = function(json) {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        datos = {
+            fecha:json.fecha,
+            precio:json.precio
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetPrecio+json.id+"/",
+            method: 'PUT',
+            headers : cabecera,
+            data: datos
+        };
+
+        return $http(peticion);
+    }
+
+    this.crearPrecio = function(precio) {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetPrecio,
+            method: 'POST',
+            headers : cabecera,
+            data : precio
+        };
+
+        return $http(peticion);
     }
 }]);

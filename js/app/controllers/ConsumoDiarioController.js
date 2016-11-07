@@ -57,6 +57,10 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
             }
         );
 
-    }
+    };
+
+    $scope.$on("atras", function(event, data) {
+        $scope.usuario = data;
+    });
 
 }]);

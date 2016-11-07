@@ -5,6 +5,8 @@
 angular.module("wellnessApp").controller("ModalInstanceEditionCtrl", ['$uibModalInstance', '$scope', 'ApiService', 'id','$uibModalInstance', '$rootScope', function($uibModalInstance, $scope, ApiService, id, $uibModalInstance, $rootScope) {
     $scope.usuario = {};
 
+    $scope.permisos = false;
+
     function resetErrores() {
         $scope.errores = {
             last_name : false,
@@ -59,11 +61,17 @@ angular.module("wellnessApp").controller("ModalInstanceEditionCtrl", ['$uibModal
                     console.log(resultado);
                     resetErrores();
                     $scope.exito = true;
+                    $scope.permisos = false;
                     $rootScope.$broadcast("recargaDatos");
                 },
                 function(resultado) {
                     console.log(resultado);
-                    parseaErrores(resultado.data);
+                    if(resultado.status != 403) {
+                        parseaErrores(resultado.data);
+                        $scope.permisos = false;
+                    }
+                    else
+                        $scope.permisos = true;
                 }
             )
         }
