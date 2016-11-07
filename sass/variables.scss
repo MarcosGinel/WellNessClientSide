@@ -3,3 +3,5 @@ $tipo_borde : solid;
 $ancho_borde : 2px;
 $recuadro_error_credenciales : $ancho_borde $tipo_borde $color_error_formulario_login;
 $altura_barra_superior: 20px;
+$gris_muy_claro: lighten(grey, 45);
+$borde_blockquote: 1px solid $gris_muy_claro;

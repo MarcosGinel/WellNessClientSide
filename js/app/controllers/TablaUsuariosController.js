@@ -2,7 +2,9 @@
  * Created by marco on 06/11/2016.
  */
 
-angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', 'ApiService', '$log', '$uibModal', function($scope, ApiService, $log, $uibModal){
+angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', 'ApiService', '$log', '$uibModal','$location', '$rootScope', function($scope, ApiService, $log, $uibModal, $location, $rootScope){
+    $scope.modoFacturas = $location.absUrl().endsWith("listarFacturas") ? true : false;
+    $scope.mostrarGrid = true;
 
     function pideDatos() {
         ApiService.getUsers().then(
@@ -20,12 +22,22 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
 
     pideDatos();
 
+    multiSeleccion = false;
+    enableSelectAll = false;
+
+    if(!$scope.modoFacturas) {
+        multiSeleccion = true;
+        enableSelectAll = true;
+
+    }
+
     $scope.gridOptions = {
         enableRowSelection: true,
-        enableSelectAll: true,
+        enableSelectAll: enableSelectAll,
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
-        showGridFooter:true
+        showGridFooter:true,
+        multiSelect: multiSeleccion
     };
 
     $scope.delete = function() {
@@ -94,7 +106,7 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
         }
     };
 
-    $scope.gridOptions.multiSelect = true;
+
 
     $scope.gridOptions.onRegisterApi = function(gridApi){
         //set gridApi on scope
@@ -113,14 +125,15 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
             var msg = 'row selected ' + row.isSelected;
             $log.log(msg);
             $log.log(row);
-
+            $scope.mostrarGrid = false;
+            $rootScope.$broadcast("idClickeado", row.entity);
         });
 
 
         gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
-            var msg = 'rows changed ' + rows.length;
-            $log.log(msg);
-            $log.log(row);
+            //var msg = 'rows changed ' + rows.length;
+            //$log.log(msg);
+            //$log.log(row);
 
         });
 
@@ -131,5 +144,7 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
         pideDatos();
     });
 
-
+    $scope.verGrid = function() {
+        return $scope.mostrarGrid;
+    }
 }]);
