@@ -1,1 +1,29 @@
-<p>Consumo diario</p>
+<div>
+    <h3>Consumo diario</h3>
+    <table class="table table-striped">
+        <thead>
+            <td>Fecha</td>
+            <td>Potencia consumida(kW)</td>
+            <td>Precio/kW</td>
+            <td>Total del día</td>
+        </thead>
+        <tr>
+        <tr ng-repeat="consumo in consumos | orderBy:-'fechaNormal'">
+            <td>
+                    {{ consumo.fechaNormal }}
+            </td>
+                <td>
+                    {{ consumo.cantidad }}
+                </td>
+                <td>
+                    {{ consumo.precioDia }}
+                </td>
+                <td>
+                    {{ consumo.precioDia*consumo.cantidad }}
+                </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>

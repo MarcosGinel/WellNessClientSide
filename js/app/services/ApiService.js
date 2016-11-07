@@ -153,4 +153,20 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
 
         return $http(peticion);
     }
+
+    this.getPrecio = function(id, iterador) {
+        token = "Token " + this.getToken();
+
+        cabecera = {
+            'Authorization' : token
+        };
+
+        peticion = {
+            url:configuracion.protocol+"://"+configuracion.host+"/"+configuracion.rutaApiGetPrecio+id+"/",
+            method: 'GET',
+            headers : cabecera,
+        };
+
+        return $http(peticion);
+    }
 }]);
