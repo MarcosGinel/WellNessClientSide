@@ -12,3 +12,7 @@
 .bordeblockquote {
     border : $borde_blockquote;
 }
+
+thead.leyendaTabla>tr>td {
+    font-weight: bold;
+}

@@ -7,4 +7,7 @@
 .bordeblockquote {
   border: 1px solid #f3f3f3; }
 
+thead.leyendaTabla > tr > td {
+  font-weight: bold; }
+
 /*# sourceMappingURL=logged.css.map */
