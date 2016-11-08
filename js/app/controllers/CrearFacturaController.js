@@ -118,6 +118,4 @@ angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','Ap
             size: 'lg'
         });
     };
-
-
 }]);

@@ -18,6 +18,7 @@ angular.module("wellnessApp").controller("DatosUsuarioController", ['$scope','$r
 
     $scope.atras = function() {
         $rootScope.$broadcast("atras", undefined);
+        $rootScope.$broadcast("usuarioDeseleccionado", undefined);
     };
 
     $scope.$on("atras", function(event, data) {

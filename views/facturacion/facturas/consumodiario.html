@@ -9,7 +9,7 @@
             <td>Total del día</td>
         </thead>
         <tr>
-        <tr ng-repeat="consumo in consumos | orderBy:-'fechaNormal'">
+        <tr ng-repeat="consumo in consumos | fechaFilter:fechaDesde:fechaHasta | orderBy:-'fechaNormal'">
             <td>
                     {{ consumo.fechaNormal }}
             </td>
@@ -25,6 +25,8 @@
 
         </tr>
         </tbody>
-
     </table>
+    <div>
+        <h3 class="col-md-9">Total: {{ consumoTotal }}</h3>
+    </div>
 </div>
