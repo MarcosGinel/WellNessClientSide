@@ -8,7 +8,6 @@ angular.module("wellnessApp").directive("tablaUsuarios", function (){
         replace: true,
         scope: true,
         templateUrl: "views/facturacion/usuarios/tablausuarios.html",
-        //controller: "TablaUsuariosController",
         link: function(scope, element, attributes) {
 
         }

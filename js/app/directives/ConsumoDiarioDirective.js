@@ -9,7 +9,6 @@ angular.module("wellnessApp").directive("consumoDiario", [function() {
         scope: true,
         templateUrl: "views/facturacion/facturas/consumodiario.html",
         controller: 'ConsumoDiarioController',
-        //controller: "TablaUsuariosController",
         link: function(scope, element, attributes) {
 
         }

@@ -39,10 +39,6 @@ angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','Ap
     };
 
 
-    $scope.$on("recargaDatos", function(event, data) {
-        pideDatos();
-    });
-
     $scope.gridOptions = {
         enableRowSelection: false,
         enableSelectAll: false,
@@ -55,7 +51,7 @@ angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','Ap
     function pideDatos() {
         ApiService.getPrecios().then(
             function ( resultado ) {
-                $scope.precios = resultado.data.results;
+                $scope.precios = resultado.data;
                 $scope.gridOptions.data = $scope.precios;
             },
             function ( resultado ) {
@@ -65,6 +61,10 @@ angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','Ap
     }
 
     pideDatos();
+
+    $scope.$on("recargaDatos", function(event, data) {
+        pideDatos();
+    });
 
     $scope.msg = {};
 
@@ -84,13 +84,6 @@ angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','Ap
             });
             return columns;
         }
-        /*gridApi.selection.on.rowSelectionChanged($scope,function(row){
-            var msg = 'row selected ' + row.isSelected;
-            $log.log(msg);
-            $log.log(row);
-            $scope.mostrarGrid = false;
-            $rootScope.$broadcast("idClickeado", row.entity);
-        });*/
 
         gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
             $scope.msg.lastCellEdited = 'edited row id:' + rowEntity.id + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue ;
@@ -108,13 +101,6 @@ angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','Ap
                 }
             )
         });
-
-        /*gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
-            //var msg = 'rows changed ' + rows.length;
-            //$log.log(msg);
-            //$log.log(row);
-
-        });*/
 
         $scope.gridApi = gridApi;
     };

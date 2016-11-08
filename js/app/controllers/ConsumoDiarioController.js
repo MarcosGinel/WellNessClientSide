@@ -20,7 +20,7 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
     function getDatos() {
         ApiService.getConsumos($scope.usuario.id).then(
             function( resultado ) {
-                $scope.consumos = resultado.data.results;
+                $scope.consumos = resultado.data;
                 console.log($scope.consumos);
                 for(i=0; i < $scope.consumos.length; i++){
                     pedirPrecio($scope.consumos[i].fecha, i);

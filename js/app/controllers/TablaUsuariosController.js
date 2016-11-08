@@ -9,7 +9,7 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
     function pideDatos() {
         ApiService.getUsers().then(
             function(resultado) {
-                datos = resultado.data.results;
+                datos = resultado.data;
                 for(i=0; i<datos.length;i++)
                     delete datos[i].password;
                 $scope.gridOptions.data = datos;
@@ -120,8 +120,6 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
         }
     };
 
-
-
     $scope.gridOptions.onRegisterApi = function(gridApi){
         //set gridApi on scope
 
@@ -145,9 +143,6 @@ angular.module("wellnessApp").controller("TablaUsuariosController", ['$scope', '
 
 
         gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
-            //var msg = 'rows changed ' + rows.length;
-            //$log.log(msg);
-            //$log.log(row);
 
         });
 
