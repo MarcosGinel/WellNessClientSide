@@ -1,27 +1,4 @@
 <div id="row" class="modal-demo">
-    <!--<p>Cargado {{ nombreController }}</p>
-    <table class="table table-striped col-xs-offset-2 col-xs-8 col-xs-pull-2 table-bordered">
-        <thead class="leyendaTabla">
-            <td>Fecha</td>
-            <td>Precio/kW</td>
-            <td>Acciones</td>
-        </thead>
-        <tr>
-        <tr ng-repeat="precio in precios | orderBy:'fechaNormal'">
-            <td>
-                {{ precio.fecha }}
-            </td>
-            <td>
-                {{ precio.precio }}
-
-            </td>
-            <td>
-                <button ng-click="editarPrecio(precio.id)" class="btn-primary btn">Editar</button>
-                <button ng-click="borrarPrecio(precio.id)" class="btn-danger btn">Borrar</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>-->
 
     <div ui-grid="gridOptions" ui-grid-edit class="grid"></div>
     <div ng-show="errores" class="alert-danger">{{ errores }}</div>
