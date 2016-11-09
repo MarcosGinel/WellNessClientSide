@@ -25,6 +25,8 @@ angular.module("wellnessApp").controller("ModalInstancePrecioCtrl", ['$uibModalI
         return fecha.toISOString().substring(0, 10);
     }
 
+    $scope.prohibido = false;
+
     $scope.crearPrecio = function() {
         $scope.precio.fecha = reverseFecha($scope.precio.fecha);
         ApiService.crearPrecio($scope.precio).then(
@@ -32,12 +34,15 @@ angular.module("wellnessApp").controller("ModalInstancePrecioCtrl", ['$uibModalI
                 console.log(resultado);
                 resetErrores();
                 $scope.exito = true;
+                $scope.prohibido = false;
                 $rootScope.$broadcast("recargaDatos");
             },
             function(resultado) {
                 console.log(resultado);
                 if(resultado.status != 403)
                     parseaErrores(resultado.data);
+                else
+                    $scope.prohibido = true;
             }
         );
     }

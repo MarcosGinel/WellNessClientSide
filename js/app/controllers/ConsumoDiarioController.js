@@ -2,12 +2,73 @@
  * Created by marco on 07/11/2016.
  */
 
-angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', 'ApiService', '$rootScope', function($scope, ApiService, $rootScope){
+angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', 'ApiService', '$rootScope','configuracion','$uibModal', function($scope, ApiService, $rootScope, configuracion, $uibModal){
     $scope.$on("idClickeado", function(event, data) {
         console.log("Id Clickeado: " + data);
         $scope.usuario = data;
         getDatos();
     });
+
+    $scope.editar = function(esParaEdicion, id) {
+        $scope.esParaEdicion = esParaEdicion;
+        $scope.esParaCreacion = !$scope.esParaEdicion;
+        $scope.consumo = {
+
+        };
+        if(id != undefined)
+            $scope.consumo.id = id;
+
+        ApiService.getUsers().then(
+            function(resultado){
+                $scope.comboUsuarios = resultado.data;
+                ApiService.getPrecios().then(
+                    function(resultado){
+                        $scope.comboFechas = resultado.data;
+
+                        var parentElem = angular.element('.modal-demo-2');
+                        $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'model-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: 'views/modal/myModalConsumoEdition.html',
+                            controller: 'ModalInstanceConsumoCtrl',
+                            //controllerAs: '$scope',
+                            appendTo: parentElem,
+                            resolve: {
+                                comboUsuarios: function() {
+                                    return $scope.comboUsuarios;
+                                },
+                                comboFechas: function() {
+                                    return $scope.comboFechas;
+                                },
+                                esParaEdicion: function() {
+                                    return $scope.esParaEdicion;
+                                },
+                                esParaCreacion: function() {
+                                    return $scope.esParaCreacion;
+                                },
+                                consumo: function() {
+                                    return $scope.consumo;
+                                },
+                                usuario: function() {
+                                    return $scope.usuario;
+                                }
+                            }
+                        });
+
+                    },
+                    function( resultado ) {
+                        console.log("Creación de precios prohibida o errónea");
+                    }
+                );
+            },
+            function( resultado ) {
+                console.log("Creación de precios prohibida o errónea");
+            }
+
+        );
+    }
+
 
     $scope.verDatos = function() {
         if($scope.usuario != undefined) {
@@ -33,8 +94,10 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
                             calculaConsumoTotal();
                         }
                     });
+
                 }
                 $rootScope.$broadcast("datosDeConsumos", $scope.consumos);
+                calculaConsumoTotal();
             },
             function( resultado ) {
                 console.log("Algo fue mal en la petición de consumos del usuario");
@@ -83,6 +146,7 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
 
     function calculaConsumoTotal() {
         $scope.consumoTotal = 0;
+        $scope.consumosDesdeApi = $scope.consumos;
         if($scope.fechaDesde != undefined && $scope.fechaHasta != undefined) {
             for(i=0; i < $scope.consumosDesdeApi.length; i++) {
                 fechaFila = new Date($scope.consumosDesdeApi[i].fechaNormal);
@@ -95,4 +159,22 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
         }
     }
 
+    $scope.borrarConsumo = function(id) {
+        ApiService.borrarConsumo(id).then(
+            function (resultado) {
+                getDatos();
+                calculaConsumoTotal();
+            },
+            function (resultado) {
+                console.log("Algo ocurrió, no se pudo borrar, ")
+            }
+        )
+    }
+
+    $scope.username = configuracion.sesion.username;
+
+    $scope.$on("recargaDatosConsumo", function(event, data) {
+        getDatos();
+        calculaConsumoTotal();
+    });
 }]);

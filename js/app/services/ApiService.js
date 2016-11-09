@@ -78,13 +78,28 @@ angular.module("wellnessApp").service("ApiService", ["$http", "configuracion", '
     };
 
     this.editarPrecio = function(json) {
-        return $http(creaPeticion('PUT', configuracion.rutaApiGetPrecio, datos, json.id));
+        return $http(creaPeticion('PUT', configuracion.rutaApiGetPrecio, json, json.id));
     }
 
     this.crearPrecio = function(precio) {
         return $http(creaPeticion('POST', configuracion.rutaApiGetPrecio, precio, undefined));
     }
 
+    this.borrarConsumo = function(id) {
+        return $http(creaPeticion('DELETE', configuracion.rutaApiDeleteConsumo, undefined, id));
+    }
+
+    this.getConsumo = function(id) {
+        return $http(creaPeticion('GET', configuracion.rutaApiDeleteConsumo, undefined, id));
+    }
+
+    this.editarConsumo = function(datos, id) {
+        return $http(creaPeticion('PUT', configuracion.rutaApiDeleteConsumo, datos, id));
+    }
+
+    this.crearConsumo = function(consumo) {
+        return $http(creaPeticion('POST', configuracion.rutaApiDeleteConsumo, consumo, undefined));
+    }
     function creaPeticion(metodo, ruta, datos, argumentoUrl) {
         var peticion = {};
         token = "Token " + configuracion.sesion.token;

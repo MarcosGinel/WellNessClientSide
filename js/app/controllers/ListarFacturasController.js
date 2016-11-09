@@ -35,15 +35,6 @@ angular.module("wellnessApp").controller("ListarFacturasController", ['$scope', 
 
         $scope.format = 'yyyy-MM-dd';
 
-        $scope.today = function() {
-            $scope.dt = new Date();
-        };
-        $scope.today();
-
-        $scope.clear = function() {
-            $scope.dt = null;
-        };
-
         function getMaxFecha() {
             maxFecha = new Date(1900, 11, 31);
             for(i = 0; i < $scope.consumos.length; i++) {

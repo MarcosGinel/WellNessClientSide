@@ -26,5 +26,6 @@
     <div ui-grid="gridOptions" ui-grid-edit class="grid"></div>
     <div ng-show="errores" class="alert-danger">{{ errores }}</div>
     <br/>
-    <button ng-click="crearPrecio()" class="btn-success btn col-sm-offset-5 col-sm-2">Crear</button>
+
+    <button ng-click="crearPrecio()" class="btn-success btn col-sm-offset-5 col-sm-2" ng-show="getVisibilidad()">Crear</button>
 </div>

@@ -2,11 +2,14 @@
  * Created by marco on 06/11/2016.
  */
 
-angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','ApiService','$uibModal', function($scope, ApiService, $uibModal){
+angular.module("wellnessApp").controller("CrearFacturaController", ['$scope','ApiService','$uibModal', 'configuracion', function($scope, ApiService, $uibModal,configuracion){
     $scope.nombreController = 'CrearFacturaController';
-
+    $scope.username = configuracion.sesion.username;
     $scope.errores = false;
 
+    $scope.getVisibilidad = function() {
+        return $scope.username == 'admin';
+    }
     function calculaErrores(json) {
         if(json.precio != undefined)
             if(json.precio[0] != undefined)

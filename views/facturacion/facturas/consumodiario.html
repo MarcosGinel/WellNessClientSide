@@ -1,12 +1,16 @@
-<div>
+<div class="modal-demo-2">
     <hr/>
-    <h3>Consumo diario</h3>
+    <div id="row">
+    <h4 class="col-md-10 col-xs-12 col-lg-10 col-sm-10">Consumo diario</h4><button ng-show="username == 'admin' "class="btn-success btn col-md-2 col-xs-12 col-lg-2 col-sm-2" ng-click="editar(false, undefined)">Crear</button>
+    </div>
+    <hr/>
     <table class="table table-striped">
         <thead class="leyendaTabla">
             <td>Fecha</td>
             <td>Potencia consumida(kW)</td>
             <td>Precio/kW</td>
             <td>Total del día</td>
+            <td ng-show="username == 'admin'">Acciones</td>
         </thead>
         <tr>
         <tr ng-repeat="consumo in consumos | fechaFilter:fechaDesde:fechaHasta | orderBy:-'fechaNormal'">
@@ -21,6 +25,10 @@
                 </td>
                 <td>
                     {{ consumo.precioDia*consumo.cantidad }}
+                </td>
+                <td ng-show="username == 'admin'">
+                    <a href="" ng-click="editar(true, consumo.id)">Editar</a>
+                    <a href="" ng-click="borrarConsumo(consumo.id)">Borrar</a>
                 </td>
 
         </tr>
