@@ -13,7 +13,7 @@
             <td ng-show="username == 'admin'">Acciones</td>
         </thead>
         <tr>
-        <tr ng-repeat="consumo in consumos | fechaFilter:fechaDesde:fechaHasta | orderBy:-'fechaNormal'">
+        <tr ng-repeat="consumo in consumos | fechaFilter:fechaDesde:fechaHasta | orderBy:'-fechaNormal'">
             <td>
                     {{ consumo.fechaNormal }}
             </td>
@@ -37,4 +37,6 @@
     <div>
         <h3 class="col-md-9">Total: {{ consumoTotal }}</h3>
     </div>
+
+    <div id="chart"></div>
 </div>

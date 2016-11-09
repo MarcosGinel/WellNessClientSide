@@ -108,6 +108,7 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
     $scope.$on("datosDeConsumos", function(event, data) {
         console.log("Terminados los datos");
         console.log($scope.consumos);
+
     });
 
     function pedirPrecio(idFecha, i) {
@@ -146,17 +147,32 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
 
     function calculaConsumoTotal() {
         $scope.consumoTotal = 0;
+        $scope.datosParaGrafica = ['Consumo'];
+        $scope.fechasParaGrafica = [];
+        $scope.preciosParaGrafica = ['Precio Unidad'];
         $scope.consumosDesdeApi = $scope.consumos;
         if($scope.fechaDesde != undefined && $scope.fechaHasta != undefined) {
             for(i=0; i < $scope.consumosDesdeApi.length; i++) {
                 fechaFila = new Date($scope.consumosDesdeApi[i].fechaNormal);
-                if(fechaFila >= $scope.fechaDesde && fechaFila <= $scope.fechaHasta)
+                if(fechaFila >= $scope.fechaDesde && fechaFila <= $scope.fechaHasta) {
                     $scope.consumoTotal += $scope.consumosDesdeApi[i]['precioDia'] * $scope.consumosDesdeApi[i]['cantidad'];
+                    $scope.datosParaGrafica.push(parseFloat($scope.consumosDesdeApi[i]['cantidad']));
+                    $scope.preciosParaGrafica.push(parseFloat($scope.consumos[i].precioDia));
+                    $scope.fechasParaGrafica.push($scope.consumos[i].fechaNormal);
+                }
             }
         } else {
-            for(i=0; i < $scope.consumosDesdeApi.length; i++)
+            for(i=0; i < $scope.consumosDesdeApi.length; i++) {
                 $scope.consumoTotal += $scope.consumosDesdeApi[i]['precioDia'] * $scope.consumosDesdeApi[i]['cantidad'];
+                $scope.datosParaGrafica.push(parseFloat($scope.consumosDesdeApi[i]['cantidad']));
+                $scope.preciosParaGrafica.push(parseFloat($scope.consumos[i].precioDia));
+                $scope.fechasParaGrafica.push($scope.consumos[i].fechaNormal)
+            }
         }
+        $scope.chart.load({
+            columns: [$scope.datosParaGrafica, $scope.preciosParaGrafica],
+            categories: $scope.fechasParaGrafica
+        });
     }
 
     $scope.borrarConsumo = function(id) {
@@ -177,4 +193,45 @@ angular.module("wellnessApp").controller("ConsumoDiarioController", ['$scope', '
         getDatos();
         calculaConsumoTotal();
     });
+
+    $scope.$on("datosDeConsumosConFechas", function(event, data){
+        function cargaDatosEnGrafica() {
+            array = [];
+            array.push('Consumo');
+            arrayPrecio=[];
+            arrayPrecio.push('Precio Unidad');
+            fechas = [];
+            for(i=0; i < $scope.consumos.length; i++) {
+                array.push(parseFloat($scope.consumos[i].cantidad));
+                arrayPrecio.push(parseFloat($scope.consumos[i].precioDia));
+                fechas.push($scope.consumos[i].fechaNormal);
+            }
+            $scope.datosParaGrafica = array;
+            $scope.fechasParaGrafica = fechas;
+            $scope.preciosParaGrafica = arrayPrecio;
+        }
+
+        cargaDatosEnGrafica();
+        $scope.chart = c3.generate({
+            data: {
+                columns: [$scope.datosParaGrafica, $scope.preciosParaGrafica],
+                types: {
+                    "Precio Unidad" : 'bar'
+                }
+            },
+            subchart: {
+                show: true
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    categories: $scope.fechasParaGrafica
+                }
+            },
+            zoom: {
+                enabled: true
+            }
+        });
+    });
+
 }]);
