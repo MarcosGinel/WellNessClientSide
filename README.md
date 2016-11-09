@@ -29,7 +29,7 @@ Se ha usado:
   * C3.js
   
 La aplicación ha de desplegarse en un servidor de aplicaciones y rellenar el fichero settings.js, concretamente las siguientes variables:
-  "protocol" : "http",
-  "host" : "localhost:8000"
+  * "protocol" : "http",
+  * "host" : "localhost:8000"
 
 Cambiar por lo que corresponda al servidor Django.  
